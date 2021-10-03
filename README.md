@@ -1,0 +1,1 @@
+# AQA6.1PageObject [![Build status](https://ci.appveyor.com/api/projects/status/9twmb2tdxs1k3ee3?svg=true)](https://ci.appveyor.com/project/GorsheninaElena/aqa6-1pageobject)
