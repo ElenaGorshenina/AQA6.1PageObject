@@ -17,14 +17,16 @@ public class MoneyTransferTest {
         var verificationPage = loginPage.validLogin(authInfo);
         var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         var dashBoardPage = verificationPage.validVerify(verificationCode);
+        int balance1before = dashBoardPage.getFirstCardBalance();
+        int balance2before = dashBoardPage.getSecondCardBalance();
         var replenishCard1 = dashBoardPage.replenishCard1();
         String sum = "100";
         var numberCard = DataHelper.getNumberCard2();
         var replenish = replenishCard1.replenish(sum, numberCard);
-        int balance1= dashBoardPage.getFirstCardBalance();
-        int balance2= dashBoardPage.getSecondCardBalance();
-        assertEquals(10100, balance1);
-        assertEquals(9900, balance2);
+        int balance1after= dashBoardPage.getFirstCardBalance();
+        int balance2after= dashBoardPage.getSecondCardBalance();
+        assertEquals(balance1before + Integer.parseInt(sum), balance1after);
+        assertEquals(balance2before - Integer.parseInt(sum), balance2after);
     }
 
     @Test
@@ -35,14 +37,36 @@ public class MoneyTransferTest {
         var verificationPage = loginPage.validLogin(authInfo);
         var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         var dashBoardPage = verificationPage.validVerify(verificationCode);
+        int balance1before = dashBoardPage.getFirstCardBalance();
+        int balance2before = dashBoardPage.getSecondCardBalance();
         var replenishCard2 = dashBoardPage.replenishCard2();
         String sum = "300";
         var numberCard = DataHelper.getNumberCard1();
         var replenish = replenishCard2.replenish(sum, numberCard);
-        int balance1= dashBoardPage.getFirstCardBalance();
-        int balance2= dashBoardPage.getSecondCardBalance();
-        assertEquals(9700, balance1);
-        assertEquals(10300, balance2);
+        int balance1after= dashBoardPage.getFirstCardBalance();
+        int balance2after= dashBoardPage.getSecondCardBalance();
+        assertEquals(balance1before - Integer.parseInt(sum), balance1after);
+        assertEquals(balance2before + Integer.parseInt(sum), balance2after);
+    }
+
+    @Test
+    void noShouldTransferMoneyIfSumMoreBalance() {
+        open("http://localhost:9999");
+        var loginPage = new LoginPageV1();
+        var authInfo = DataHelper.getAuthInfo();
+        var verificationPage = loginPage.validLogin(authInfo);
+        var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
+        var dashBoardPage = verificationPage.validVerify(verificationCode);
+        int balance1before = dashBoardPage.getFirstCardBalance();
+        int balance2before = dashBoardPage.getSecondCardBalance();
+        var replenishCard1 = dashBoardPage.replenishCard1();
+        String sum = "15000";
+        var numberCard = DataHelper.getNumberCard2();
+        var replenish = replenishCard1.replenish(sum, numberCard);
+        int balance1after= dashBoardPage.getFirstCardBalance();
+        int balance2after= dashBoardPage.getSecondCardBalance();
+        assertEquals(balance1before, balance1after);
+        assertEquals(balance2before, balance2after);
     }
 
 }

@@ -8,8 +8,8 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class ReplenishCard {
     private SelenideElement headingH1 = $("h1");
-    private SelenideElement amount = $("[data-test-id='amount']");
-    private SelenideElement from = $("[data-test-id='from']");
+    private SelenideElement amount = $("[data-test-id='amount'] input");
+    private SelenideElement from = $("[data-test-id='from'] input");
     private SelenideElement replenishButton = $("[data-test-id='action-transfer']");
 
     public ReplenishCard() {
