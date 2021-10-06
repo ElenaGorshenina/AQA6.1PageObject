@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
 import ru.netology.page.LoginPageV1;
 
+import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -67,6 +69,23 @@ public class MoneyTransferTest {
         int balance2after= dashBoardPage.getSecondCardBalance();
         assertEquals(balance1before, balance1after);
         assertEquals(balance2before, balance2after);
+    }
+
+    @Test
+    void errorIfNumberCardNoValid() {
+        open("http://localhost:9999");
+        var loginPage = new LoginPageV1();
+        var authInfo = DataHelper.getAuthInfo();
+        var verificationPage = loginPage.validLogin(authInfo);
+        var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
+        var dashBoardPage = verificationPage.validVerify(verificationCode);
+        int balance1before = dashBoardPage.getFirstCardBalance();
+        int balance2before = dashBoardPage.getSecondCardBalance();
+        var replenishCard1 = dashBoardPage.replenishCard1();
+        String sum = "200";
+        var numberCard = DataHelper.getNumberCardNoValid();
+        var replenish = replenishCard1.replenish(sum, numberCard);
+        $(".notification__content").shouldHave(exactText("Ошибка! Произошла ошибка"));
     }
 
 }

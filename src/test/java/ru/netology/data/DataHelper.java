@@ -39,4 +39,7 @@ public class DataHelper {
     public static NumberCard getNumberCard2() {
         return new NumberCard ("5559 0000 0000 0002");
     }
+    public static NumberCard getNumberCardNoValid() {
+        return new NumberCard ("5559 0000 0000 0055");
+    }
 }
