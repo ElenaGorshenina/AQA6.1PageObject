@@ -2,10 +2,10 @@ package ru.netology.test;
 
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
+import ru.netology.page.ErrorInfo;
 import ru.netology.page.LoginPageV1;
+import ru.netology.page.ReplenishCard;
 
-import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -85,7 +85,7 @@ public class MoneyTransferTest {
         String sum = "200";
         var numberCard = DataHelper.getNumberCardNoValid();
         var replenish = replenishCard1.replenish(sum, numberCard);
-        $(".notification__content").shouldHave(exactText("Ошибка! Произошла ошибка"));
+        var error = ErrorInfo.errorCard();
     }
 
 }

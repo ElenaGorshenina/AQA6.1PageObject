@@ -23,5 +23,4 @@ public class ReplenishCard {
             return new DashboardPage();
         }
 
-
 }
