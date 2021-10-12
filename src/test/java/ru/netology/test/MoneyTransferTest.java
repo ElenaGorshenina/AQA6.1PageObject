@@ -21,7 +21,7 @@ public class MoneyTransferTest {
         var replenishCard1 = dashBoardPage.replenishCard1();
         String sum = "100";
         var numberCard = DataHelper.getNumberCard2();
-        var replenish = replenishCard1.replenish(sum, numberCard);
+        var replenish = replenishCard1.complitReplenish(sum, numberCard);
         int balance1after = dashBoardPage.getFirstCardBalance();
         int balance2after = dashBoardPage.getSecondCardBalance();
         assertEquals(balance1before + Integer.parseInt(sum), balance1after);
@@ -40,7 +40,7 @@ public class MoneyTransferTest {
         var replenishCard2 = dashBoardPage.replenishCard2();
         String sum = "300";
         var numberCard = DataHelper.getNumberCard1();
-        var replenish = replenishCard2.replenish(sum, numberCard);
+        var replenish = replenishCard2.complitReplenish(sum, numberCard);
         int balance1after = dashBoardPage.getFirstCardBalance();
         int balance2after = dashBoardPage.getSecondCardBalance();
         assertEquals(balance1before - Integer.parseInt(sum), balance1after);
@@ -59,7 +59,7 @@ public class MoneyTransferTest {
         var replenishCard1 = dashBoardPage.replenishCard1();
         String sum = "15000";
         var numberCard = DataHelper.getNumberCard2();
-        var replenish = replenishCard1.replenish(sum, numberCard);
+        var replenish = replenishCard1.complitReplenish(sum, numberCard);
         int balance1after = dashBoardPage.getFirstCardBalance();
         int balance2after = dashBoardPage.getSecondCardBalance();
         assertEquals(balance1before, balance1after);
@@ -78,12 +78,9 @@ public class MoneyTransferTest {
         var replenishCard1 = dashBoardPage.replenishCard1();
         String sum = "200";
         var numberCard = DataHelper.getNumberCardNoValid();
-        var replenish = replenishCard1.replenish(sum, numberCard);
-        var replenish1 = replenishCard1.errorCard();
-        int balance1after = dashBoardPage.getFirstCardBalance();
-        int balance2after = dashBoardPage.getSecondCardBalance();
-        assertEquals(balance1before, balance1after);
-        assertEquals(balance2before, balance2after);
+        replenishCard1.replenish(sum, numberCard);
+        replenishCard1.errorCard();
+
     }
 
 }

@@ -15,22 +15,25 @@ public class ReplenishCard {
     private SelenideElement amount = $("[data-test-id='amount'] input");
     private SelenideElement from = $("[data-test-id='from'] input");
     private SelenideElement replenishButton = $("[data-test-id='action-transfer']");
-    private static SelenideElement errorWindow = $(".notification__content");
+    private SelenideElement errorWindow = $(".notification__content");
 
     public ReplenishCard() {
         headingH1.shouldBe(Condition.visible);
     }
 
-    public DashboardPage replenish(String sum, DataHelper.NumberCard numberCard) {
+    public void replenish(String sum, DataHelper.NumberCard numberCard) {
         amount.setValue(sum);
         from.setValue(numberCard.getNumberCard());
         replenishButton.click();
+    }
+
+    public DashboardPage complitReplenish(String sum, DataHelper.NumberCard numberCard) {
+        replenish(sum, numberCard);
         return new DashboardPage();
     }
 
-    public static ReplenishCard errorCard() {
+    public void errorCard() {
         errorWindow.shouldHave(exactText("Недействительный номер карты"));
-        return new ReplenishCard();
     }
 
 }
